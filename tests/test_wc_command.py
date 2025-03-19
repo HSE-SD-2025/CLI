@@ -12,7 +12,7 @@ class TestWcCommand:
     def temp_file(self):
         """Create a temporary file with test content"""
         with tempfile.NamedTemporaryFile(mode='w', delete=False) as f:
-            f.write("line 1\nline 2\nline 3\n")
+            f.write(f"line 1{os.linesep}line 2{os.linesep}line 3{os.linesep}")
             return f.name
 
     def test_wc_single_file(self, wc_command, capsys, temp_file):
@@ -60,7 +60,7 @@ class TestWcCommand:
     def test_wc_file_with_special_chars(self, wc_command, capsys):
         """Test wc command with a file containing special characters"""
         with tempfile.NamedTemporaryFile(mode='w', delete=False) as f:
-            f.write("line 1\nline 2\twith tab\nline 3 with spaces")
+            f.write(f"line 1{os.linesep}line 2\twith tab{os.linesep}line 3 with spaces")
             result = wc_command.execute([f.name])
             captured = capsys.readouterr()
             
