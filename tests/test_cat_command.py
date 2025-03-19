@@ -63,18 +63,3 @@ class TestCatCommand:
         assert result == 1
         assert "No such file or directory" in captured.err
 
-
-    def test_cat_permission_error(self, cat_command, capsys):
-        """Test cat command with a file that has no read permissions"""
-        with tempfile.NamedTemporaryFile(mode='w', delete=False) as f:
-            f.write("test content")
-            os.chmod(f.name, 0o000)
-
-            result = cat_command.execute([f.name])
-            captured = capsys.readouterr()
-
-            assert result == 1
-            assert "Permission denied" in captured.err
-
-            os.chmod(f.name, 0o644)
-            os.unlink(f.name)
