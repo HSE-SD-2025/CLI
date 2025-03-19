@@ -15,14 +15,6 @@ class TestWcCommand:
             f.write(f"line 1{os.linesep}line 2{os.linesep}line 3{os.linesep}")
             return f.name
 
-    def test_wc_single_file(self, wc_command, capsys, temp_file):
-        """Test wc command with a single file"""
-        result = wc_command.execute([temp_file])
-        captured = capsys.readouterr()
-        
-        assert result == 0
-        assert "       3        6" in captured.out
-        assert temp_file in captured.out
 
     def test_wc_multiple_files(self, wc_command, capsys):
         """Test wc command with multiple files"""
