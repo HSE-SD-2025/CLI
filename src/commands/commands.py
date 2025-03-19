@@ -1,3 +1,5 @@
+from .wc_command import WcCommand
+
 commands = {
     "echo": EchoCommand(),
     "cat": CatCommand(),
@@ -5,5 +7,3 @@ commands = {
     "pwd": PwdCommand(),
     "exit": ExitCommand(),
 }
-
-
