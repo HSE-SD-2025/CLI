@@ -23,6 +23,9 @@ class CliEngine:
             self.return_code = command.execute(parsed_command)
 
     def run(self):
+        """
+        Run Cli
+        """
         while not self.is_exit:
             input_command = input("> ")
             parsed_command = self.__parse_command(input_command)
