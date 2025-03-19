@@ -3,6 +3,7 @@ from src.commands.exit_command import ExitCommand
 from src.commands.pwd_command import PwdCommand
 from src.commands.wc_command import WcCommand
 from src.commands.cat_command import CatCommand
+from src.commands.exit_command import ExitCommand
 
 commands = {
     "echo": EchoCommand(),
