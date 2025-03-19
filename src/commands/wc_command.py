@@ -15,16 +15,15 @@ class WcCommand(CommandInterface):
         else:
             print(f"{lines:8} {words:8} {bytes_count:7}")
 
-    """
-    Outputs the number of lines, words, and bytes for each specified file
-    and a summary line if multiple files were specified.
-    
-    :param List[str] args: list of files for which the command will be called
-    :return: returns 0 if the program worked correctly, 1 otherwise
-    :rtype: int
-    """
-
     def execute(self, args: List[str]) -> int:
+        """
+        Outputs the number of lines, words, and bytes for each specified file
+        and a summary line if multiple files were specified.
+
+        :param List[str] args: list of files for which the command will be called
+        :return: returns 0 if the program worked correctly, 1 otherwise
+        :rtype: int
+        """
         code = 0
         files = args
         total_lines = total_words = total_bytes = 0
