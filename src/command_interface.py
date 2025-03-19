@@ -1,6 +1,7 @@
-class CommandInterface:
-    def __init__(self):
-        pass
+from typing import List
 
-    def execute(self, args):
+
+class CommandInterface:
+
+    def execute(self, args: List[str]) -> int:
         pass

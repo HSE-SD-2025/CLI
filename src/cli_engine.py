@@ -9,7 +9,7 @@ class CliEngine:
     def __init__(self):
         self.is_exit = False
 
-    def __parse_command(self, command_line: str):
+    def __parse_command(self, command_line: str) -> List[str]:
         return shlex.split(command_line)
 
     def __execute_command(self, parsed_command: List[str]):
