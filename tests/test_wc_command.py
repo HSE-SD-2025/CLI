@@ -1,0 +1,86 @@
+import pytest
+import os
+import tempfile
+from src.commands.wc_command import WcCommand
+
+class TestWcCommand:
+    @pytest.fixture
+    def wc_command(self):
+        return WcCommand()
+
+    @pytest.fixture
+    def temp_file(self):
+        """Create a temporary file with test content"""
+        with tempfile.NamedTemporaryFile(mode='w', delete=False) as f:
+            f.write("line 1\nline 2\nline 3\n")
+            return f.name
+
+    def test_wc_empty_args(self, wc_command, capsys):
+        """Test wc command with no arguments"""
+        result = wc_command.execute([])
+        captured = capsys.readouterr()
+        
+        assert result == 0
+        assert captured.out == "       0        0        0\n"
+
+    def test_wc_single_file(self, wc_command, capsys, temp_file):
+        """Test wc command with a single file"""
+        result = wc_command.execute([temp_file])
+        captured = capsys.readouterr()
+        
+        assert result == 0
+        # The output should show 3 lines, 6 words, and the byte count
+        assert "       3        6" in captured.out
+        assert temp_file in captured.out
+
+    def test_wc_multiple_files(self, wc_command, capsys):
+        """Test wc command with multiple files"""
+        with tempfile.NamedTemporaryFile(mode='w', delete=False) as f1, \
+             tempfile.NamedTemporaryFile(mode='w', delete=False) as f2:
+            f1.write("file1 content")
+            f2.write("file2 content")
+            
+            result = wc_command.execute([f1.name, f2.name])
+            captured = capsys.readouterr()
+            
+            assert result == 0
+            # Should show stats for each file and a total
+            assert "total" in captured.out
+            assert f1.name in captured.out
+            assert f2.name in captured.out
+            
+            os.unlink(f1.name)
+            os.unlink(f2.name)
+
+    def test_wc_nonexistent_file(self, wc_command, capsys):
+        """Test wc command with a nonexistent file"""
+        result = wc_command.execute(["nonexistent.txt"])
+        captured = capsys.readouterr()
+        
+        assert result == 1
+        assert "No such file or directory" in captured.out
+
+    def test_wc_empty_file(self, wc_command, capsys):
+        """Test wc command with an empty file"""
+        with tempfile.NamedTemporaryFile(mode='w', delete=False) as f:
+            result = wc_command.execute([f.name])
+            captured = capsys.readouterr()
+            
+            assert result == 0
+            assert "0        0       0" in captured.out
+            assert f.name in captured.out
+            
+            os.unlink(f.name)
+
+    def test_wc_file_with_special_chars(self, wc_command, capsys):
+        """Test wc command with a file containing special characters"""
+        with tempfile.NamedTemporaryFile(mode='w', delete=False) as f:
+            f.write("line 1\nline 2\twith tab\nline 3 with spaces")
+            result = wc_command.execute([f.name])
+            captured = capsys.readouterr()
+            
+            assert result == 0
+            assert "       3        7" in captured.out
+            assert f.name in captured.out
+            
+            os.unlink(f.name) 
