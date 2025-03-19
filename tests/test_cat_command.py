@@ -42,7 +42,7 @@ class TestCatCommand:
         captured = capsys.readouterr()
 
         assert result == 0
-        assert captured.out == "line 1\nline 2\nline 3"
+        assert captured.out == "line 1\nline 2\nline 3\n"
 
     def test_cat_multiple_files(self, temp_file, temp_file_second, cat_command, capsys):
         """Test cat command with multiple files"""
@@ -55,26 +55,26 @@ class TestCatCommand:
 
 
 
-def test_cat_nonexistent_file(cat_command, capsys):
-    """Test cat command with a nonexistent file"""
-    result = cat_command.execute(["nonexistent.txt"])
-    captured = capsys.readouterr()
-
-    assert result == 1
-    assert "No such file or directory" in captured.err
-
-
-def test_cat_permission_error(cat_command, capsys):
-    """Test cat command with a file that has no read permissions"""
-    with tempfile.NamedTemporaryFile(mode='w', delete=False) as f:
-        f.write("test content")
-        os.chmod(f.name, 0o000)
-
-        result = cat_command.execute([f.name])
+    def test_cat_nonexistent_file(self, cat_command, capsys):
+        """Test cat command with a nonexistent file"""
+        result = cat_command.execute(["nonexistent.txt"])
         captured = capsys.readouterr()
 
         assert result == 1
-        assert "Permission denied" in captured.err
+        assert "No such file or directory" in captured.err
 
-        os.chmod(f.name, 0o644)
-        os.unlink(f.name)
+
+    def test_cat_permission_error(self, cat_command, capsys):
+        """Test cat command with a file that has no read permissions"""
+        with tempfile.NamedTemporaryFile(mode='w', delete=False) as f:
+            f.write("test content")
+            os.chmod(f.name, 0o000)
+
+            result = cat_command.execute([f.name])
+            captured = capsys.readouterr()
+
+            assert result == 1
+            assert "Permission denied" in captured.err
+
+            os.chmod(f.name, 0o644)
+            os.unlink(f.name)
