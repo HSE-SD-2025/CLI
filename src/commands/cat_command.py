@@ -24,7 +24,7 @@ class CatCommand(CommandInterface):
         if not args:
             try:
                 for line in sys.stdin:
-                    print(line, end='')
+                    print(line)
                 return 0
             except KeyboardInterrupt:
                 print("\nProcess interrupted by user.")
@@ -37,7 +37,8 @@ class CatCommand(CommandInterface):
             try:
                 with open(file_name, 'r') as file:
                     for line in file:
-                        print(line, end='')
+                        print(line,end='')
+                print()
             except FileNotFoundError:
                 print(f"cat: {file_name}: No such file or directory", file=sys.stderr)
                 return 1
