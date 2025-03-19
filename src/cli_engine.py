@@ -1,8 +1,8 @@
 import shlex
-import commands
+from src.commands import commands
 from typing import List
 
-from src.external_command import ExternalCommand
+from src.commands.external_command import ExternalCommand
 
 
 class CliEngine:

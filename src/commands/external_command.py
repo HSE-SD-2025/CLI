@@ -1,6 +1,6 @@
 from typing import List
 
-from src.command_interface import CommandInterface
+from src.commands.command_interface import CommandInterface
 
 
 class ExternalCommand(CommandInterface):
