@@ -38,9 +38,6 @@ class TestWcCommand:
             assert "total" in captured.out
             assert f1.name in captured.out
             assert f2.name in captured.out
-            
-            os.unlink(f1.name)
-            os.unlink(f2.name)
 
     def test_wc_nonexistent_file(self, wc_command, capsys):
         """Test wc command with a nonexistent file"""
@@ -59,8 +56,6 @@ class TestWcCommand:
             assert result == 0
             assert "0        0       0" in captured.out
             assert f.name in captured.out
-            
-            os.unlink(f.name)
 
     def test_wc_file_with_special_chars(self, wc_command, capsys):
         """Test wc command with a file containing special characters"""
@@ -71,5 +66,3 @@ class TestWcCommand:
             
             assert result == 0
             assert f.name in captured.out
-            
-            os.unlink(f.name) 
