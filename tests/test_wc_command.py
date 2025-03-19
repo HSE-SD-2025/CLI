@@ -21,7 +21,6 @@ class TestWcCommand:
         captured = capsys.readouterr()
         
         assert result == 0
-        # The output should show 3 lines, 6 words, and the byte count
         assert "       3        6" in captured.out
         assert temp_file in captured.out
 
@@ -36,7 +35,6 @@ class TestWcCommand:
             captured = capsys.readouterr()
             
             assert result == 0
-            # Should show stats for each file and a total
             assert "total" in captured.out
             assert f1.name in captured.out
             assert f2.name in captured.out

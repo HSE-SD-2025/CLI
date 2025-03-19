@@ -37,7 +37,7 @@ class WcCommand(CommandInterface):
                 continue
             lines = content.count(os.linesep)
             words = len(content.split())
-            bytes_count = len(content.encode('utf-8'))
+            bytes_count = os.path.getsize(file_name)
             self.__print_stats(lines, words, bytes_count, file_name)
             total_lines += lines
             total_words += words
