@@ -1,3 +1,4 @@
+import os
 from typing import List
 
 from src.commands.command_interface import CommandInterface
@@ -35,7 +36,7 @@ class WcCommand(CommandInterface):
                 print(f"wc: {file_name}: No such file or directory")
                 code = 1
                 continue
-            lines = len(content.splitlines())
+            lines = content.count(os.linesep)
             words = len(content.split())
             bytes_count = len(content.encode('utf-8'))
             self.__print_stats(lines, words, bytes_count, file_name)
