@@ -3,7 +3,7 @@ from typing import List
 from src.commands.command_interface import CommandInterface
 
 
-class WcCommand(CommandInterface):
+class ExitCommand(CommandInterface):
 
     def __init__(self):
         super().__init__()

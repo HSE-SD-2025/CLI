@@ -2,6 +2,7 @@ import shlex
 from src.commands import commands
 from typing import List
 
+from src.commands.exit_command import ExitCommand
 from src.commands.external_command import ExternalCommand
 
 
@@ -15,7 +16,7 @@ class CliEngine:
 
     def __execute_command(self, parsed_command: List[str]):
         command = commands.commands.get(parsed_command[0], ExternalCommand())
-        if isinstance(command, ExternalCommand):
+        if isinstance(command, ExitCommand):
             self.is_exit = command.execute(parsed_command[1:])
         else:
             self.return_code = command.execute(parsed_command[1:])
