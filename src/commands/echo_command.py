@@ -21,8 +21,11 @@ class EchoCommand(CommandInterface):
             int: 0 if successful, 1 if an error occurred
         """
         try:
-            for arg in args:
-                print(arg, end=' ')
+            for i in range(0, len(args)):
+                print(args[i], end='')
+                if i != len(args) - 1:
+                    print(end=' ')
+            print()
             return 0
         except Exception as e:
             print(f"echo: An error occurred: {e}", file=sys.stderr)

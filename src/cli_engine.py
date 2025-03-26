@@ -1,5 +1,6 @@
 import shlex
-from typing import List, Optional
+import re
+from typing import List
 
 from src.commands import commands
 from src.commands.exit_command import ExitCommand
@@ -10,6 +11,7 @@ class CliEngine:
     def __init__(self):
         self.is_exit = False
         self.return_code = 0
+        self.env = dict()
 
     def __parse_commands(self, command_line: str) -> List[List[str]]:
         """Parse a command line into a list of commands (for pipes)"""
@@ -17,7 +19,20 @@ class CliEngine:
 
     def __parse_command(self, command: str) -> List[str]:
         """Parse a single command into its components"""
-        return shlex.split(command.strip())
+        tokens = shlex.split(self.__substitute_env(command.strip()))
+        if len(tokens) == 1 and '=' in tokens[0]:
+            token = tokens[0]
+            lhs, rhs = token.split('=')
+            if lhs == "" or rhs == "":
+                raise 'Incorrect input'
+            self.env[lhs] = rhs
+            return []
+        return tokens
+
+    def __substitute_env(self, command: str) -> str:
+        return re.sub(
+            r"\$([A-Za-z_][A-Za-z0-9_]*)", lambda m: self.env.get(m.group(1)), command
+        )
 
     def __execute_piped_commands(self, commands_list: List[List[str]]) -> int:
         """Execute a series of piped commands by chaining them together"""
