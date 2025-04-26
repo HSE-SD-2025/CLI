@@ -55,8 +55,9 @@ class TestWcCommand:
     def test_wc_file_with_special_chars(self, wc_command, capsys):
         """Test wc command with a file containing special characters"""
         with tempfile.NamedTemporaryFile(mode="w", delete=False) as f:
-            f.write(f"line 1{os.linesep}line "
-                    f"2\twith tab{os.linesep}line 3 with spaces")
+            f.write(
+                f"line 1{os.linesep}line " f"2\twith tab{os.linesep}line 3 with spaces"
+            )
             result = wc_command.execute([f.name])
             captured = capsys.readouterr()
 

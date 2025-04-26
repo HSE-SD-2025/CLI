@@ -41,12 +41,12 @@ class CatCommand(CommandInterface):
                         print(line, end="")
                 print()
             except FileNotFoundError:
-                print(f"cat: {file_name}: No"
-                      f" such file or directory", file=sys.stderr)
+                print(
+                    f"cat: {file_name}: No" f" such file or directory", file=sys.stderr
+                )
                 return 1
             except PermissionError:
-                print(f"cat: {file_name}:"
-                      f" Permission denied", file=sys.stderr)
+                print(f"cat: {file_name}:" f" Permission denied", file=sys.stderr)
                 return 1
             except Exception as e:
                 print(f"cat: {file_name}: {e}", file=sys.stderr)
