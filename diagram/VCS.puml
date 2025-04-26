@@ -1,0 +1,103 @@
+@startuml
+
+component "Version Control Core" as Core {
+  class Repository {
+    +config: Config
+    +objectDatabase: ObjectDatabase
+    +refDatabase: RefDatabase
+    +workingDirectory: WorkingDirectory
+    +remote: Remote
+    +commit(message, author, date): Commit
+    +createBranch(name): void
+    +deleteBranch(name): void
+    +checkout(ref): void
+    +merge(otherBranch): MergeResult
+    +fetch(remoteRepo): void
+    +pull(remoteRepo): void
+    +push(remoteRepo): void
+  }
+
+  class ObjectDatabase {
+    +store(obj: GitObject): Hash
+    +load(hash: Hash): GitObject
+    +compress(): void
+  }
+
+  class RefDatabase {
+    +update(ref: Reference): void
+    +resolve(name: String): Hash
+  }
+
+  class WorkingDirectory {
+    +syncWithCommit(commit: Commit): void
+    +detectChanges(): Diff
+  }
+
+  class Remote {
+    +fetch(): void
+    +push(): void
+  }
+}
+
+component "CLI Interface" as CLI {
+  class CommandParser {
+    +parse(args: String[]): Command
+  }
+
+  class CommandExecutor {
+    +execute(cmd: Command): void
+  }
+}
+
+component "Network Client" as Net {
+  class RemoteRepository {
+    +fetch(refs: Map<String, Hash>): void
+    +push(refs: Map<String, Hash>): void
+  }
+}
+
+class Commit {
+  +hash: Hash
+  +message: String
+  +author: String
+  +date: DateTime
+  +parent: Hash
+  +tree: Hash
+}
+
+class Tree {
+  +entries: Map<String, TreeEntry>
+}
+
+class Blob {
+  +content: byte[]
+}
+
+class Diff {
+  +changes: List<Change>
+}
+
+class MergeResult {
+  +conflicts: List<Conflict>
+  +success: boolean
+}
+
+CLI --> Core : uses
+Core --> Net : uses
+
+Repository --> ObjectDatabase
+Repository --> RefDatabase
+Repository --> WorkingDirectory
+Repository --> Remote
+
+ObjectDatabase --> Commit
+ObjectDatabase --> Tree
+ObjectDatabase --> Blob
+
+WorkingDirectory --> Diff
+
+Commit "1" *-- "1" Tree
+Tree "1" *-- "*" TreeEntry
+TreeEntry "1" *-- "1" Blob
+
+@enduml
