@@ -15,16 +15,16 @@ class CliEngine:
 
     def __parse_commands(self, command_line: str) -> List[List[str]]:
         """Parse a command line into a list of commands (for pipes)"""
-        return [self.__parse_command(cmd) for cmd in command_line.split('|')]
+        return [self.__parse_command(cmd) for cmd in command_line.split("|")]
 
     def __parse_command(self, command: str) -> List[str]:
         """Parse a single command into its components"""
         tokens = shlex.split(self.__substitute_env(command.strip()))
-        if len(tokens) == 1 and '=' in tokens[0]:
+        if len(tokens) == 1 and "=" in tokens[0]:
             token = tokens[0]
-            lhs, rhs = token.split('=')
+            lhs, rhs = token.split("=")
             if lhs == "" or rhs == "":
-                raise 'Incorrect input'
+                raise "Incorrect input"
             self.env[lhs] = rhs
             return []
         return tokens
@@ -53,7 +53,7 @@ class CliEngine:
 
             try:
                 if previous_output is not None:
-                    if hasattr(command, 'execute_with_input'):
+                    if hasattr(command, "execute_with_input"):
                         result = command.execute_with_input(args, previous_output)
                     else:
                         result = command.execute(args)
@@ -71,9 +71,8 @@ class CliEngine:
                 previous_output = ""
                 return_code = 1
 
-
         if len(commands_list) == 1 and previous_output:
-            print(previous_output, end='')
+            print(previous_output, end="")
 
         return return_code
 

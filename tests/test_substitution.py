@@ -21,6 +21,7 @@ class TestCliEngineEnv:
         with pytest.raises(Exception):
             cli._CliEngine__parse_command("VARNAME=")
 
+
 class TestCliEngineSubstitution:
     @pytest.fixture
     def cli(self):
@@ -38,7 +39,7 @@ class TestCliEngineSubstitution:
         cli.env["FIRST"] = "hello"
         cli.env["SECOND"] = "world"
 
-        parsed_commands = cli._CliEngine__parse_commands('echo $FIRST $SECOND')
+        parsed_commands = cli._CliEngine__parse_commands("echo $FIRST $SECOND")
         return_code = cli._CliEngine__execute_piped_commands(parsed_commands)
         captured = capfd.readouterr()
 
@@ -48,7 +49,7 @@ class TestCliEngineSubstitution:
     def test_echo_with_unset_vars(self, cli, capfd):
         """Test echo with unset environment variables"""
         cli.env["SET_VAR"] = "hello"
-        parsed_commands = cli._CliEngine__parse_commands('echo $SET_VAR $UNSET2')
+        parsed_commands = cli._CliEngine__parse_commands("echo $SET_VAR $UNSET2")
         return_code = cli._CliEngine__execute_piped_commands(parsed_commands)
         captured = capfd.readouterr()
         assert return_code == 0
@@ -57,7 +58,7 @@ class TestCliEngineSubstitution:
     def test_echo_with_mixed_vars(self, cli, capfd):
         """Test echo with mix of set and unset variables"""
         cli.env["SET_VAR"] = "hello"
-        parsed_commands = cli._CliEngine__parse_commands('echo $UNSET1 $UNSET2')
+        parsed_commands = cli._CliEngine__parse_commands("echo $UNSET1 $UNSET2")
         return_code = cli._CliEngine__execute_piped_commands(parsed_commands)
         captured = capfd.readouterr()
         assert return_code == 0
