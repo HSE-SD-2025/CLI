@@ -1,5 +1,5 @@
-import shlex
 import re
+import shlex
 from typing import List
 
 from src.commands import commands
