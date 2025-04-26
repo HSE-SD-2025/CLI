@@ -1,4 +1,3 @@
-import os
 import tempfile
 
 import pytest
@@ -44,14 +43,19 @@ class TestCatCommand:
         assert result == 0
         assert captured.out == "line 1\nline 2\nline 3\n"
 
-    def test_cat_multiple_files(self, temp_file, temp_file_second, cat_command, capsys):
+    def test_cat_multiple_files(self, temp_file,
+                                temp_file_second,
+                                cat_command,
+                                capsys):
         """Test cat command with multiple files"""
 
-        result = cat_command.execute([temp_file, temp_file_second])
+        result = (cat_command
+                  .execute([temp_file, temp_file_second]))
         captured = capsys.readouterr()
 
         assert result == 0
-        assert captured.out == "line 1\nline 2\nline 3\nline 1\nline 2\nline 3\n"
+        assert captured.out == ("line 1\nline "
+                                "2\nline 3\nline 1\nline 2\nline 3\n")
 
     def test_cat_nonexistent_file(self, cat_command, capsys):
         """Test cat command with a nonexistent file"""

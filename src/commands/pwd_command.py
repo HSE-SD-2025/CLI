@@ -1,5 +1,6 @@
-from typing import List
 import os
+from typing import List
+
 from src.commands.command_interface import CommandInterface
 
 

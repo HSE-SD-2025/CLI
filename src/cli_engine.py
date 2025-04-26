@@ -1,7 +1,7 @@
 import shlex
-from src.commands import commands
 from typing import List
 
+from src.commands import commands
 from src.commands.exit_command import ExitCommand
 from src.commands.external_command import ExternalCommand
 

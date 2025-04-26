@@ -1,6 +1,5 @@
 import pytest
-from io import StringIO
-import sys
+
 from src.commands.echo_command import EchoCommand
 
 

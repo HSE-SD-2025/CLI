@@ -20,7 +20,8 @@ class WcCommand(CommandInterface):
         Outputs the number of lines, words, and bytes for each specified file
         and a summary line if multiple files were specified.
 
-        :param List[str] args: list of files for which the command will be called
+        :param List[str] args:
+        list of files for which the command will be called
         :return: returns 0 if the program worked correctly, 1 otherwise
         :rtype: int
         """

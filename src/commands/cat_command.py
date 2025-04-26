@@ -16,7 +16,8 @@ class CatCommand(CommandInterface):
         Execute the cat command by reading and displaying file contents.
 
         Args:
-            args (List[str]): List of file paths to read. If empty, reads from stdin.
+            args (List[str]): List of file paths to read.
+            If empty, reads from stdin.
 
         Returns:
             int: 0 if successful, 1 if an error occurred
@@ -40,10 +41,12 @@ class CatCommand(CommandInterface):
                         print(line, end="")
                 print()
             except FileNotFoundError:
-                print(f"cat: {file_name}: No such file or directory", file=sys.stderr)
+                print(f"cat: {file_name}: No"
+                      f" such file or directory", file=sys.stderr)
                 return 1
             except PermissionError:
-                print(f"cat: {file_name}: Permission denied", file=sys.stderr)
+                print(f"cat: {file_name}:"
+                      f" Permission denied", file=sys.stderr)
                 return 1
             except Exception as e:
                 print(f"cat: {file_name}: {e}", file=sys.stderr)

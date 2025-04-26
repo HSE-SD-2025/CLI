@@ -1,5 +1,7 @@
-import pytest
 import os
+
+import pytest
+
 from src.commands.pwd_command import PwdCommand
 
 
