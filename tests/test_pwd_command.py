@@ -2,6 +2,7 @@ import pytest
 import os
 from src.commands.pwd_command import PwdCommand
 
+
 class TestPwdCommand:
     @pytest.fixture
     def pwd_command(self):
@@ -11,7 +12,7 @@ class TestPwdCommand:
         """Test pwd command basic functionality"""
         result = pwd_command.execute([])
         captured = capsys.readouterr()
-        
+
         assert result == 0
         assert captured.out == os.getcwd() + "\n"
 
@@ -19,7 +20,7 @@ class TestPwdCommand:
         """Test pwd command with arguments (should ignore them)"""
         result = pwd_command.execute(["some", "args"])
         captured = capsys.readouterr()
-        
+
         assert result == 0
         assert captured.out == os.getcwd() + "\n"
 
@@ -30,8 +31,8 @@ class TestPwdCommand:
             os.chdir(tmp_path)
             result = pwd_command.execute([])
             captured = capsys.readouterr()
-            
+
             assert result == 0
             assert captured.out == str(tmp_path) + "\n"
         finally:
-            os.chdir(original_dir) 
+            os.chdir(original_dir)

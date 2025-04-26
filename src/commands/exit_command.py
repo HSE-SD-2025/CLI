@@ -10,9 +10,9 @@ class ExitCommand(CommandInterface):
 
     def execute(self, args: List[str]) -> bool:
         """
-           Leads to normal program termination
+        Leads to normal program termination
 
-           :return: Always return True
-           :rtype: bool
-           """
+        :return: Always return True
+        :rtype: bool
+        """
         return True

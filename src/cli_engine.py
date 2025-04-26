@@ -16,7 +16,11 @@ class CliEngine:
 
     def __execute_command(self, parsed_command: List[str]):
         command = commands.commands.get(parsed_command[0], ExternalCommand())
-        parsed_command = parsed_command if isinstance(command, ExternalCommand) else parsed_command[1:]
+        parsed_command = (
+            parsed_command
+            if isinstance(command, ExternalCommand)
+            else parsed_command[1:]
+        )
         if isinstance(command, ExitCommand):
             self.is_exit = command.execute(parsed_command)
         else:

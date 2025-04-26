@@ -3,6 +3,7 @@ from io import StringIO
 import sys
 from src.commands.echo_command import EchoCommand
 
+
 class TestEchoCommand:
     @pytest.fixture
     def echo_command(self):
@@ -34,4 +35,4 @@ class TestEchoCommand:
         result = echo_command.execute(["hello\n", "world\t", "test!"])
         captured = capsys.readouterr()
         assert result == 0
-        assert captured.out == "hello\n world\t test! " 
+        assert captured.out == "hello\n world\t test! "

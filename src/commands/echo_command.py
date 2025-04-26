@@ -22,7 +22,7 @@ class EchoCommand(CommandInterface):
         """
         try:
             for arg in args:
-                print(arg, end=' ')
+                print(arg, end=" ")
             return 0
         except Exception as e:
             print(f"echo: An error occurred: {e}", file=sys.stderr)

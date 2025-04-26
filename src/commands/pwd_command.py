@@ -2,6 +2,7 @@ from typing import List
 import os
 from src.commands.command_interface import CommandInterface
 
+
 class PwdCommand(CommandInterface):
     """
     A command that prints the current working directory.

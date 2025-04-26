@@ -35,9 +35,9 @@ class CatCommand(CommandInterface):
 
         for file_name in args:
             try:
-                with open(file_name, 'r') as file:
+                with open(file_name, "r") as file:
                     for line in file:
-                        print(line,end='')
+                        print(line, end="")
                 print()
             except FileNotFoundError:
                 print(f"cat: {file_name}: No such file or directory", file=sys.stderr)
