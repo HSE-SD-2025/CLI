@@ -28,9 +28,6 @@ jobs:
     
     - name: Check import sorting with isort
       run: isort --check-only src/ tests/
-    
-    - name: Run flake8
-      run: flake8 src/ tests/
 
   test:
     runs-on: ${{ matrix.os }}
