@@ -6,10 +6,10 @@ from src.commands.exit_command import ExitCommand
 from src.commands.grep_command import GrepCommand
 
 commands = {
-    "echo": EchoCommand(),
-    "cat": CatCommand(),
-    "wc": WcCommand(),
-    "pwd": PwdCommand(),
-    "exit": ExitCommand(),
-    "grep": GrepCommand(),
+    "echo": EchoCommand,
+    "cat": CatCommand,
+    "wc": WcCommand,
+    "pwd": PwdCommand,
+    "exit": ExitCommand,
+    "grep": GrepCommand,
 }

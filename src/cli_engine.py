@@ -5,10 +5,11 @@ from typing import List
 from src.commands import commands
 from src.commands.exit_command import ExitCommand
 from src.commands.external_command import ExternalCommand
-
+from src.file_system import FileSystem
 
 class CliEngine:
     def __init__(self):
+        self.file_system = FileSystem()
         self.is_exit = False
         self.return_code = 0
         self.env = dict()
@@ -48,8 +49,7 @@ class CliEngine:
 
             command_name = cmd[0]
             args = cmd[1:]
-
-            command = commands.commands.get(command_name, ExternalCommand())
+            command = commands.commands.get(command_name, ExternalCommand)(self.file_system)
 
             try:
                 if previous_output is not None:

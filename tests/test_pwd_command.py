@@ -1,11 +1,12 @@
 import pytest
 import os
 from src.commands.pwd_command import PwdCommand
+from src.file_system import FileSystem
 
 class TestPwdCommand:
     @pytest.fixture
     def pwd_command(self):
-        return PwdCommand()
+        return PwdCommand(FileSystem())
 
     def test_pwd_basic(self, pwd_command, capsys):
         """Test pwd command basic functionality"""

@@ -6,9 +6,6 @@ from src.commands.command_interface import CommandInterface
 
 class WcCommand(CommandInterface):
 
-    def __init__(self):
-        super().__init__()
-
     def __print_stats(self, lines, words, bytes_count, name=""):
         if name:
             print(f"{lines:8} {words:8} {bytes_count:7} {name}")

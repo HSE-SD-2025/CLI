@@ -2,11 +2,12 @@ import pytest
 import os
 import tempfile
 from src.commands.wc_command import WcCommand
+from src.file_system import FileSystem
 
 class TestWcCommand:
     @pytest.fixture
     def wc_command(self):
-        return WcCommand()
+        return WcCommand(FileSystem())
 
     @pytest.fixture
     def temp_file(self):

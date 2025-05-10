@@ -4,12 +4,12 @@ import tempfile
 import pytest
 
 from src.commands.cat_command import CatCommand
-
+from src.file_system import FileSystem
 
 class TestCatCommand:
     @pytest.fixture
     def cat_command(self):
-        return CatCommand()
+        return CatCommand(FileSystem())
 
     @pytest.fixture
     def temp_file(self):

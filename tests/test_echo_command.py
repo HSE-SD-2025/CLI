@@ -2,11 +2,12 @@ import pytest
 from io import StringIO
 import sys
 from src.commands.echo_command import EchoCommand
+from src.file_system import FileSystem
 
 class TestEchoCommand:
     @pytest.fixture
     def echo_command(self):
-        return EchoCommand()
+        return EchoCommand(FileSystem())
 
     def test_echo_empty_args(self, echo_command, capsys):
         """Test echo command with no arguments"""

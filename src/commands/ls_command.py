@@ -1,9 +1,8 @@
 from typing import List
 import os
 from src.commands.command_interface import CommandInterface
-from src.file_system import FileSystem
 
-class PwdCommand(CommandInterface):
+class LsCommand(CommandInterface):
     """
     A command that prints the current working directory.
     Similar to the Unix pwd command.
@@ -19,5 +18,5 @@ class PwdCommand(CommandInterface):
         Returns:
             int: Always returns 0 as this command rarely fails
         """
-        print(os.getcwd()) # FIXME with file_system
+        print(os.getcwd())
         return 0

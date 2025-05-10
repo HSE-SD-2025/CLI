@@ -3,7 +3,7 @@ import argparse
 import sys
 from typing import List, Tuple
 from src.commands.command_interface import CommandInterface
-
+from src.file_system import FileSystem
 
 class GrepCommand(CommandInterface):
     """
@@ -12,8 +12,8 @@ class GrepCommand(CommandInterface):
     and context lines after matches.
     """
 
-    def __init__(self):
-        super().__init__()
+    def __init__(self, file_system: FileSystem):
+        super().__init__(file_system)
         self.parser = argparse.ArgumentParser(prog='grep')
         self.parser.add_argument('pattern', help='Pattern to search for')
         self.parser.add_argument('files', nargs='+', help='Files to search in')

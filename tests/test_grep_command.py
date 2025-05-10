@@ -1,12 +1,13 @@
 import pytest
 import tempfile
 from src.commands.grep_command import GrepCommand
+from src.file_system import FileSystem
 
 
 class TestGrepCommand:
     @pytest.fixture
     def grep_command(self):
-        return GrepCommand()
+        return GrepCommand(FileSystem())
 
     @pytest.fixture
     def temp_file(self):
