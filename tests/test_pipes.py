@@ -33,7 +33,12 @@ def cli_engine_with_mocks():
 def test_single_command_no_pipe(cli_engine_with_mocks):
     """Test single command execution (no piping)"""
     cli_engine, mock_echo, _, _ = cli_engine_with_mocks
-    mock_echo.execute.return_value = "hello"
+    def mock_execute(args):
+        print("hello")
+        return 0
+
+    mock_echo.execute.side_effect = mock_execute
+
     with patch('sys.stdout', new=StringIO()) as fake_out:
         return_code = cli_engine._CliEngine__execute_piped_commands([["echo", "hello"]])
         assert return_code == 0
