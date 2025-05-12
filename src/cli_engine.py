@@ -1,7 +1,7 @@
+import os
 import shlex
 import re
 from typing import List
-
 from src.commands import commands
 from src.commands.exit_command import ExitCommand
 from src.commands.external_command import ExternalCommand
@@ -13,6 +13,14 @@ class CliEngine:
         self.is_exit = False
         self.return_code = 0
         self.env = dict()
+
+    def __get_prompt(self) -> str:
+        """Generate the prompt with current directory"""
+        current_dir = self.file_system.get_current_dir()
+        home = os.path.expanduser("~")
+        if current_dir.startswith(home):
+            current_dir = current_dir.replace(home, "~", 1)
+        return f"{current_dir}> "
 
     def __parse_commands(self, command_line: str) -> List[List[str]]:
         """Parse a command line into a list of commands (for pipes)"""
@@ -71,9 +79,8 @@ class CliEngine:
                 previous_output = ""
                 return_code = 1
 
-
-        if len(commands_list) == 1 and previous_output:
-            print(previous_output, end='')
+        # if len(commands_list) == 1 and previous_output:
+        #     print(previous_output, end='')
 
         return return_code
 
@@ -81,7 +88,7 @@ class CliEngine:
         """Run the CLI engine"""
         while not self.is_exit:
             try:
-                input_command = input("> ").strip()
+                input_command = input(self.__get_prompt()).strip()
                 if not input_command:
                     continue
 
