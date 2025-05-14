@@ -43,7 +43,7 @@ class CdCommand(CommandInterface):
             return 1
 
         try:
-            self.file_system.current_dir = os.path.abspath(path)
+            self.file_system.set_current_dir(os.path.abspath(path))
             return 0
         except Exception as e:
             print(f"cd: {path}: {str(e)}", file=sys.stderr)

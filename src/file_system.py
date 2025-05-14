@@ -10,7 +10,7 @@ class FileSystem:
     def get_current_dir(self):
         return self.current_dir
 
-    def resolve(self, path : PathLike):
+    def resolve(self, path: PathLike):
         expanded_path = os.path.expanduser(path)
         if os.path.isabs(expanded_path):
             abs_path = expanded_path
@@ -18,3 +18,6 @@ class FileSystem:
             abs_path = os.path.join(self.current_dir, expanded_path)
         normalized_path = os.path.normpath(abs_path)
         return normalized_path
+
+    def set_current_dir(self, path):
+        self.current_dir = path

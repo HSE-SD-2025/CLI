@@ -26,7 +26,9 @@ class WcCommand(CommandInterface):
         total_lines = total_words = total_bytes = 0
         for file_name in files:
             try:
-                with open(file_name, 'r', encoding='utf-8') as f:
+                with open(
+                    self.file_system.resolve(file_name), "r", encoding="utf-8"
+                ) as f:
                     content = f.read()
             except FileNotFoundError:
                 print(f"wc: {file_name}: No such file or directory")
